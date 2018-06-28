@@ -9,15 +9,33 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import lt.at.assignment.data.WordWithOccurrences;
 import lt.at.assignment.input.TextFileReader;
 
 @ManagedBean(name = "app")
-@ApplicationScoped
+@ViewScoped
 public class App {
+	
+	public enum WordGroups {
+		
+		GROUP_A_TO_G(0),
+		GROUP_H_TO_N(1),
+		GROUP_O_TO_U(2),
+		GROUP_V_TO_Z(3);
+		
+		private final int wordGroup;
+		
+		private WordGroups(int wordGroup) {
+			this.wordGroup = wordGroup;
+		}
+
+		public int getWordGroup() {
+			return wordGroup;
+		}
+	}
 
 	private final ConcurrentHashMap<String, Integer> groupA_G;
 	private final ConcurrentHashMap<String, Integer> groupH_N;
