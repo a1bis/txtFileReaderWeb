@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+<h:body>
+	<h:form enctype="multipart/form-data">
+		<h:panelGrid columns="1" cellpadding="5">
+			<h:outputLabel for="fileUpload" value="Upload text file:" />
+			<p:fileUpload id="fileUpload"
+				fileUploadListener="#{textFileReaderView.handleFileUpload}"
+				mode="advanced" dragDropSupport="false"
+				update="messages,ag,hn,ou,vz" sizeLimit="100000" fileLimit="10"
+				multiple="true" allowTypes="/(\.|\/)(txt)$/" />
+
+			<p:growl id="messages" showDetail="true" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1" cellpadding="5">
+			<h:outputLabel for="ag" value="A to G words:" />
+			<p:dataTable id="ag" value="#{textFileReaderView.wordsAG}" var="wwo">
+				<p:column headerText="Word">
+					<h:outputText value="#{wwo.word}" />
+				</p:column>
+
+				<p:column headerText="Occurrences">
+					<h:outputText value="#{wwo.occurrences}" />
+				</p:column>
+			</p:dataTable>
+
+			<h:outputLabel for="hn" value="H to N words:" />
+			<p:dataTable id="hn" value="#{textFileReaderView.wordsHN}" var="wwo">
+				<p:column headerText="Word">
+					<h:outputText value="#{wwo.word}" />
+				</p:column>
+
+				<p:column headerText="Occurrences">
+					<h:outputText value="#{wwo.occurrences}" />
+				</p:column>
+			</p:dataTable>
+
+			<h:outputLabel for="ou" value="O to U words:" />
+			<p:dataTable id="ou" value="#{textFileReaderView.wordsOU}" var="wwo">
+				<p:column headerText="Word">
+					<h:outputText value="#{wwo.word}" />
+				</p:column>
+
+				<p:column headerText="Occurrences">
+					<h:outputText value="#{wwo.occurrences}" />
+				</p:column>
+			</p:dataTable>
+
+			<h:outputLabel for="vz" value="V to Z words:" />
+			<p:dataTable id="vz" value="#{textFileReaderView.wordsVZ}" var="wwo">
+				<p:column headerText="Word">
+					<h:outputText value="#{wwo.word}" />
+				</p:column>
+
+				<p:column headerText="Occurrences">
+					<h:outputText value="#{wwo.occurrences}" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
