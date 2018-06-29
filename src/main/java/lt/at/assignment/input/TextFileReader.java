@@ -6,10 +6,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class TextFileReader implements Runnable {
 
+	private static final String WORD_SEPARATOR = "\\W+";
+	private static final String ONLY_ALPHABET_PATTERN = "[a-zA-Z]+";
 	private final InputStream inputStream;
 	private final ConcurrentHashMap<String, Integer> groupA_G;
 	private final ConcurrentHashMap<String, Integer> groupH_N;
@@ -37,7 +40,7 @@ public class TextFileReader implements Runnable {
 		Object[] objectArray = lines.toArray();
 		for (Object obj : objectArray) {
 			String line = (String) obj;
-			String[] wordArray = line.split("\\W+");
+			String[] wordArray = line.split(WORD_SEPARATOR);
 			goThroughWordArray(wordArray);
 		}
 		lines.close();
@@ -45,7 +48,9 @@ public class TextFileReader implements Runnable {
 
 	private void goThroughWordArray(String[] wordArray) {
 		for (String word : wordArray) {
-			addWordToGroup(word);
+			if(Pattern.matches(ONLY_ALPHABET_PATTERN, word)) {
+				addWordToGroup(word);
+			}
 		}
 	}
 

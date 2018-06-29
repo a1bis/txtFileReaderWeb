@@ -27,7 +27,15 @@ import lt.at.assignment.data.WordWithOccurrences;
 public class TextFileReaderView implements Serializable {
 
 	private static final long serialVersionUID = 930103037626507302L;
-
+	private static final String LINE_BREAK = "\r\n";
+	private static final String TXT_EXTENSION = ".txt";
+	private static final String FILENAME_A_TO_G = "a_g";
+	private static final String FILENAME_H_TO_N = "h_n";
+	private static final String FILENAME_O_TO_U = "o_u";
+	private static final String FILENAME_V_TO_Z = "v_z";
+	private static final String CONTENT_TYPE = "text/plain";
+	private static final String COLON_SEPARATOR = " : ";
+	
 	@ManagedProperty("#{app}")
 	private App app;
 
@@ -63,24 +71,24 @@ public class TextFileReaderView implements Serializable {
 		String fileName;
 		if (n == WordGroups.GROUP_A_TO_G.getWordGroup()) {
 			stream = buildInputStreamForDownload(wordsAG);
-			fileName = "a_g";
+			fileName = FILENAME_A_TO_G;
 		} else if (n == WordGroups.GROUP_H_TO_N.getWordGroup()) {
 			stream = buildInputStreamForDownload(wordsHN);
-			fileName = "h_n";
+			fileName = FILENAME_H_TO_N;
 		} else if (n == WordGroups.GROUP_O_TO_U.getWordGroup()) {
 			stream = buildInputStreamForDownload(wordsOU);
-			fileName = "o_u";
+			fileName = FILENAME_O_TO_U;
 		} else {
 			stream = buildInputStreamForDownload(wordsVZ);
-			fileName = "v_z";
+			fileName = FILENAME_V_TO_Z;
 		}
-		file = new DefaultStreamedContent(stream, "text/plain", fileName + ".txt");
+		file = new DefaultStreamedContent(stream, CONTENT_TYPE, fileName + TXT_EXTENSION);
 	}
 
 	private InputStream buildInputStreamForDownload(List<WordWithOccurrences> words) {
 		StringBuilder builder = new StringBuilder();
 		for (WordWithOccurrences wwo : words) {
-			builder.append(wwo.getWord()).append(" : ").append(wwo.getOccurrences()).append("\r\n");
+			builder.append(wwo.getWord()).append(COLON_SEPARATOR).append(wwo.getOccurrences()).append(LINE_BREAK);
 		}
 		return new ByteArrayInputStream(builder.toString().getBytes(StandardCharsets.UTF_8));
 	}
