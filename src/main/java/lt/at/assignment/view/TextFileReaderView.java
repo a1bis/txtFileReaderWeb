@@ -35,7 +35,7 @@ public class TextFileReaderView implements Serializable {
 	private static final String FILENAME_V_TO_Z = "v_z";
 	private static final String CONTENT_TYPE = "text/plain";
 	private static final String COLON_SEPARATOR = " : ";
-	
+
 	@ManagedProperty("#{app}")
 	private App app;
 
